@@ -43,12 +43,17 @@ gulp.task('dev', gulp.series('devScss', 'devServer', 'watch'));
 
 //js压缩 es6转es5
 gulp.task('bJs', function() {
-    return gulp.src('./src/js/**/*.js')
+    return gulp.src('./src/js/page/*.js')
         .pipe(babel({
             presets: ['@babel/env']
         }))
         .pipe(minjs())
-        .pipe(gulp.dest('./build/js'))
+        .pipe(gulp.dest('./build/js/page'))
+});
+
+gulp.task('bJss', function() {
+    return gulp.src('./src/js/libs/*.{js,min.js}')
+        .pipe(gulp.dest('./build/js/libs'))
 });
 
 //css
@@ -70,13 +75,18 @@ gulp.task('bHtml', function() {
         .pipe(gulp.dest('./build'))
 });
 
+gulp.task('fonts', function() {
+    return gulp.src('./src/fonts/*.{js,css,html,svg,log,ttf,woff,eot}')
+        .pipe(gulp.dest('build/fonts'))
+})
+
 gulp.task('serverB', function() {
     serverFun('build')
 });
 
 
 //开发环境
-gulp.task('build', gulp.series('bJs', 'bCss', 'bImage', 'bHtml', 'serverB'))
+gulp.task('build', gulp.series('bJs', 'bJss', 'bCss', 'fonts', 'bImage', 'bHtml', 'serverB'))
 
 
 
