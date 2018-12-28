@@ -51,6 +51,7 @@ gulp.task('bJs', function() {
         .pipe(gulp.dest('./build/js/page'))
 });
 
+//直接把没必要压缩转化的js直接输出到目标文件夹
 gulp.task('bJss', function() {
     return gulp.src('./src/js/libs/*.{js,min.js}')
         .pipe(gulp.dest('./build/js/libs'))
@@ -75,11 +76,13 @@ gulp.task('bHtml', function() {
         .pipe(gulp.dest('./build'))
 });
 
+//图标文件
 gulp.task('fonts', function() {
     return gulp.src('./src/fonts/*.{js,css,html,svg,log,ttf,woff,eot}')
         .pipe(gulp.dest('build/fonts'))
 })
 
+//线上环境服务
 gulp.task('serverB', function() {
     serverFun('build')
 });
